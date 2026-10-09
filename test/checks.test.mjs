@@ -78,3 +78,16 @@ test('runChecks puts errors first and marksFor skips items without a box', () =>
   assert.deepEqual(findings.map((f) => f.severity), ['error', 'warn', 'info']);
   assert.equal(marksFor(findings, 'folded').length, 1);
 });
+
+test('fold: a centred column is reported as one layout problem', () => {
+  const open = probe({
+    interactive: [
+      { label: 'a "Start"', x: 420, y: 10, w: 50, h: 44 },
+      { label: 'a "Pricing"', x: 410, y: 80, w: 70, h: 44 },
+      { label: 'button "Off"', x: 400, y: 150, w: 60, h: 44 },
+    ],
+  });
+  const [f] = checkFold(open);
+  assert.match(f.title, /^Centred layout: 3 controls/);
+  assert.match(f.fix, /two columns/);
+});

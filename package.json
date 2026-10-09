@@ -1,6 +1,6 @@
 {
   "name": "iphone-duo-check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Check a website for iPhone Duo layout problems: sideways scroll, layouts that don't update when the phone opens, controls on the fold, small tap targets",
   "license": "MIT",
   "author": "Tehseen Ullah",

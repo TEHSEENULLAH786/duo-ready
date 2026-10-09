@@ -103,18 +103,30 @@ export function checkFold(open) {
   // of the crease; small ones sitting on it are not.
   const onFold = open.interactive.filter((el) => el.x < hi && el.x + el.w > lo && el.w < 200);
   if (!onFold.length) return [];
+  // A single centred column puts every button on the crease. Say so once,
+  // with the one fix, rather than listing each button as its own problem.
+  const centred = onFold.filter((el) => Math.abs(el.x + el.w / 2 - DUO.foldX) < 24);
+  const column = onFold.length >= 2 && centred.length * 2 >= onFold.length;
+  const n = onFold.length;
   return [
     {
       id: 'on-fold',
       severity: 'warn',
       state: 'open',
-      title: `${onFold.length} control${onFold.length === 1 ? ' sits' : 's sit'} on the fold`,
-      detail:
-        'On the open Duo the crease runs down the middle of the screen. Buttons and links on it ' +
-        'are hard to tap, and Safari does not move them aside the way iOS does for native apps.',
-      fix:
-        'Lay the open screen out as two columns with a gap at the centre, or keep small controls ' +
-        'off the middle (CSS grid with a central gutter works well).',
+      title: column
+        ? `Centred layout: ${n} controls sit on the fold`
+        : `${n} control${n === 1 ? ' sits' : 's sit'} on the fold`,
+      detail: column
+        ? 'The page is one centred column, so its buttons and links land on the crease down the ' +
+          'middle of the open Duo. They are hard to tap there, and Safari does not move them aside ' +
+          'the way iOS does for native apps.'
+        : 'On the open Duo the crease runs down the middle of the screen. Buttons and links on it ' +
+          'are hard to tap, and Safari does not move them aside the way iOS does for native apps.',
+      fix: column
+        ? 'From about 800px wide, split the page into two columns (content on one side, actions on ' +
+          'the other), or left-align rows of actions so none sits on the centre line.'
+        : 'Lay the open screen out as two columns with a gap at the centre, or keep small controls ' +
+          'off the middle (CSS grid with a central gutter works well).',
       items: onFold.slice(0, MAX_ITEMS),
     },
   ];
@@ -180,7 +192,7 @@ export function runChecks({ folded, unfolded, open }) {
 export function marksFor(findings, state) {
   return findings
     .filter((f) => f.state === state)
-    .flatMap((f) => f.items.filter((i) => i.w).map((i) => ({ ...i, severity: f.severity })));
+    .flatMap((f) => f.items.filter((i) => i.w && i.inShot !== false).map((i) => ({ ...i, severity: f.severity })));
 }
 
 export function stateName(state) {

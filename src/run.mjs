@@ -96,6 +96,13 @@ export async function checkUrl(url, opts = {}) {
     const open = await probe(openPage);
 
     const findings = runChecks({ folded, unfolded, open });
+    // Items below what the screenshot shows (a long page, or a box that
+    // scrolls on its own) get no number on the picture.
+    const layouts = { folded, unfolded, open };
+    for (const f of findings) {
+      const shotHeight = Math.min(layouts[f.state].docHeight, MAX_SHOT_HEIGHT);
+      for (const i of f.items) if (i.w) i.inShot = i.y < shotHeight && i.x < layouts[f.state].viewport.width;
+    }
     screenshots.unfolded = await shot(foldedPage, 'unfolded', marksFor(findings, 'unfolded'), DUO.foldX, unfolded);
     screenshots.open = await shot(openPage, 'open', marksFor(findings, 'open'), DUO.foldX, open);
 

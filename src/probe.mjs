@@ -45,6 +45,20 @@ export function probeLayout(opts) {
     return steps.join('/');
   }
 
+  // What a person sees or hears for a control: its name, else its text.
+  function name(el) {
+    const text =
+      el.getAttribute('aria-label') ||
+      (el.innerText || '').trim() ||
+      el.getAttribute('title') ||
+      el.querySelector('img[alt]')?.getAttribute('alt') ||
+      el.getAttribute('placeholder') ||
+      el.getAttribute('value') ||
+      '';
+    const one = text.replace(/\s+/g, ' ').trim();
+    return one.length > 32 ? one.slice(0, 31) + '…' : one;
+  }
+
   function visible(el, rect) {
     if (rect.width < 1 || rect.height < 1) return false;
     const style = getComputedStyle(el);
@@ -111,7 +125,8 @@ export function probeLayout(opts) {
     const parentText = (el.parentElement?.textContent || '').trim().length;
     const ownText = (el.textContent || '').trim().length;
     const inlineInText = style.display === 'inline' && parentText > ownText + 20;
-    interactive.push({ label: label(el), ...box(rect), inlineInText });
+    const shown = name(el);
+    interactive.push({ label: label(el) + (shown ? ` "${shown}"` : ''), ...box(rect), inlineInText });
   }
 
   // Orientation media queries: on the open Duo the screen is wider than

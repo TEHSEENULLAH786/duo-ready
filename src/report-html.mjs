@@ -9,7 +9,7 @@ function numberItems(findings) {
   const next = { folded: 0, unfolded: 0, open: 0 };
   return findings.map((f) => ({
     ...f,
-    items: f.items.map((i) => ({ ...i, n: i.w ? ++next[f.state] : null })),
+    items: f.items.map((i) => ({ ...i, n: i.w && i.inShot !== false ? ++next[f.state] : null })),
   }));
 }
 
@@ -39,7 +39,7 @@ export function renderHtml(report) {
       ${
         f.items.length
           ? `<ul>${f.items
-              .map((i) => `<li>${i.n ? `<span class="n">${i.n}</span>` : ''}<code>${esc(i.label)}</code></li>`)
+              .map((i) => `<li>${i.n ? `<span class="n">${i.n}</span>` : ''}<code>${esc(i.label)}</code>${i.inShot === false ? '<span class="off">not in the screenshot</span>' : ''}</li>`)
               .join('')}</ul>`
           : ''
       }
@@ -82,6 +82,7 @@ figcaption { font-size:13px; color:var(--muted); margin-top:8px; }
 .n { font-size:11px; font-weight:700; color:#fff; background:var(--warn); border-radius:3px; padding:0 5px; }
 .error .n { background:var(--error); }
 .empty { color:var(--muted); }
+.off { font-size:12px; color:var(--muted); white-space:nowrap; }
 footer { margin-top:40px; font-size:13px; color:var(--muted); }
 </style></head>
 <body><main>
