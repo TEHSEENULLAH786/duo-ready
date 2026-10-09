@@ -2,3 +2,4 @@ node_modules/
 duo-ready-report/
 *.log
 .DS_Store
+launch-post.md
