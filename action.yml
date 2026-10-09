@@ -1,5 +1,5 @@
 name: iphone-duo-check
-description: Check a website for iPhone Duo layout problems (sideways scroll, layouts that don't update when the phone opens, controls on the fold)
+description: "Check a website for iPhone Duo layout bugs: sideways scroll, layouts that don't update on open, controls on the fold"
 author: Tehseen Ullah
 branding:
   icon: smartphone
