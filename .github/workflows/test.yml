@@ -1,0 +1,39 @@
+name: test
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npx playwright install --with-deps webkit
+      - run: npm test
+
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Serve the test pages
+        run: (python3 -m http.server 8765 -d test/fixtures &) && sleep 1
+      - name: A good page passes
+        uses: ./
+        with:
+          url: http://localhost:8765/good.html
+          report-name: good-report
+      - name: A bad page fails
+        id: bad
+        continue-on-error: true
+        uses: ./
+        with:
+          url: http://localhost:8765/bad.html
+          report-name: bad-report
+      - name: Check the bad page failed with 2 errors
+        run: |
+          test "${{ steps.bad.outcome }}" = "failure"
+          test "${{ steps.bad.outputs.errors }}" = "2"

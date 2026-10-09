@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util';
 import { resolve, join } from 'node:path';
+import { appendFile } from 'node:fs/promises';
 import { checkUrl } from '../src/run.mjs';
 import { stateName } from '../src/checks.mjs';
+import { renderMarkdown } from '../src/report-md.mjs';
 
 const HELP = `duo-ready: check a website for iPhone Duo layout problems
 
@@ -12,6 +14,7 @@ Options:
   -o, --out <dir>      Report folder (default: duo-ready-report)
       --no-report      Don't write report files, only print
       --json           Print the report as JSON
+      --summary <file> Also append a Markdown summary to <file> (for CI)
       --strict         Exit 1 on warnings as well as errors
       --engine <name>  webkit (default, Safari's engine) or chromium
       --timeout <ms>   Page load timeout (default 30000)
@@ -28,6 +31,7 @@ try {
       out: { type: 'string', short: 'o', default: 'duo-ready-report' },
       'no-report': { type: 'boolean', default: false },
       json: { type: 'boolean', default: false },
+      summary: { type: 'string' },
       strict: { type: 'boolean', default: false },
       engine: { type: 'string', default: 'webkit' },
       timeout: { type: 'string', default: '30000' },
@@ -90,6 +94,8 @@ if (values.json) {
   else console.log(bold(`${errors} error${errors === 1 ? '' : 's'}, ${warnings} warning${warnings === 1 ? '' : 's'}, ${notes} note${notes === 1 ? '' : 's'}`));
   if (outDir) console.log(dim('Report: ') + join(outDir, 'report.html'));
 }
+
+if (values.summary) await appendFile(values.summary, renderMarkdown(report) + '\n');
 
 const failed = report.summary.errors > 0 || (values.strict && report.summary.warnings > 0);
 process.exit(failed ? 1 : 0);

@@ -59,6 +59,22 @@ CI job.
 
 The first run needs the WebKit browser: `npx playwright install webkit`.
 
+### GitHub Action
+
+Check every pull request. Start your site, then point the action at it:
+
+```yaml
+- run: npm ci && npm run build && (npx serve dist -l 4200 &) && sleep 2
+- uses: TEHSEENULLAH786/duo-ready@v0
+  with:
+    url: http://localhost:4200
+    # strict: true   # fail on warnings too
+```
+
+The findings appear in the job summary, and the report with screenshots is
+uploaded as the `duo-ready-report` artifact. Inputs: `url`, `strict`,
+`engine`, `settle`, `report-name`. Outputs: `errors`, `warnings`.
+
 ### From code
 
 ```js

@@ -1,0 +1,74 @@
+name: duo-ready
+description: Check a website for iPhone Duo layout problems (sideways scroll, layouts that don't update when the phone opens, controls on the fold)
+author: Tehseen Ullah
+branding:
+  icon: smartphone
+  color: purple
+
+inputs:
+  url:
+    description: The page to check, e.g. http://localhost:4200 or https://example.com
+    required: true
+  strict:
+    description: Fail on warnings as well as errors
+    default: 'false'
+  engine:
+    description: webkit (Safari's engine) or chromium
+    default: webkit
+  settle:
+    description: Milliseconds to wait after the page loads and after the phone opens
+    default: '800'
+  report-name:
+    description: Name of the uploaded report artifact (empty to skip the upload)
+    default: duo-ready-report
+
+outputs:
+  errors:
+    description: Number of errors found
+    value: ${{ steps.check.outputs.errors }}
+  warnings:
+    description: Number of warnings found
+    value: ${{ steps.check.outputs.warnings }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install duo-ready
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        npm ci --omit=dev --no-audit --no-fund
+        npx playwright install --with-deps ${{ inputs.engine }}
+
+    - name: Check ${{ inputs.url }}
+      id: check
+      shell: bash
+      env:
+        DUO_URL: ${{ inputs.url }}
+        DUO_STRICT: ${{ inputs.strict }}
+        DUO_ENGINE: ${{ inputs.engine }}
+        DUO_SETTLE: ${{ inputs.settle }}
+        DUO_OUT: ${{ runner.temp }}/duo-ready-report
+      run: |
+        args=("$DUO_URL" --out "$DUO_OUT" --engine "$DUO_ENGINE" --settle "$DUO_SETTLE" --summary "$GITHUB_STEP_SUMMARY")
+        [ "$DUO_STRICT" = "true" ] && args+=(--strict)
+        set +e
+        node "${{ github.action_path }}/bin/duo-ready.mjs" "${args[@]}"
+        code=$?
+        set -e
+        if [ -f "$DUO_OUT/report.json" ]; then
+          node -e 'const r=require(process.argv[1]);console.log(`errors=${r.summary.errors}\nwarnings=${r.summary.warnings}`)' "$DUO_OUT/report.json" >> "$GITHUB_OUTPUT"
+        fi
+        echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+
+    - name: Upload report
+      if: always() && inputs.report-name != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.report-name }}
+        path: ${{ runner.temp }}/duo-ready-report
+        if-no-files-found: ignore
+
+    - name: Result
+      shell: bash
+      run: exit ${{ steps.check.outputs.exit_code }}
