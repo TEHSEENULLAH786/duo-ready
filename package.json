@@ -1,16 +1,16 @@
 {
-  "name": "duo-ready",
+  "name": "iphone-duo-check",
   "version": "0.1.0",
   "description": "Check a website for iPhone Duo layout problems: sideways scroll, layouts that don't update when the phone opens, controls on the fold, small tap targets",
   "license": "MIT",
   "author": "Tehseen Ullah",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TEHSEENULLAH786/duo-ready.git"
+    "url": "git+https://github.com/TEHSEENULLAH786/iphone-duo-check.git"
   },
-  "homepage": "https://github.com/TEHSEENULLAH786/duo-ready#readme",
+  "homepage": "https://github.com/TEHSEENULLAH786/iphone-duo-check#readme",
   "bugs": {
-    "url": "https://github.com/TEHSEENULLAH786/duo-ready/issues"
+    "url": "https://github.com/TEHSEENULLAH786/iphone-duo-check/issues"
   },
   "type": "module",
   "main": "src/index.mjs",
@@ -18,7 +18,7 @@
     ".": "./src/index.mjs"
   },
   "bin": {
-    "duo-ready": "bin/duo-ready.mjs"
+    "iphone-duo-check": "bin/iphone-duo-check.mjs"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"

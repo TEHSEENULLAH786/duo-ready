@@ -1,5 +1,5 @@
 node_modules/
-duo-ready-report/
+iphone-duo-check-report/
 *.log
 .DS_Store
 launch-post.md

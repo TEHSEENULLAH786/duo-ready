@@ -1,11 +1,11 @@
-# duo-ready
+# iphone-duo-check
 
 Checks a website for iPhone Duo layout problems and tells you what to fix.
 It doesn't just show a preview: it opens the page the way the phone does and
 reports what broke, with marked screenshots.
 
 ```
-npx duo-ready https://example.com
+npx iphone-duo-check https://example.com
 ```
 
 ```
@@ -32,15 +32,15 @@ opened from folded, then fresh at the open size.
 | Orientation media queries | note | The open Duo is wider than tall while held upright, so `(orientation: landscape)` matches. |
 
 Safari can't tell a page where the fold is (it has no Viewport Segments
-support), so a site can only respond to the size. duo-ready tests exactly
+support), so a site can only respond to the size. iphone-duo-check tests exactly
 that.
 
 ## Usage
 
 ```
-duo-ready <url> [options]
+iphone-duo-check <url> [options]
 
-  -o, --out <dir>      Report folder (default: duo-ready-report)
+  -o, --out <dir>      Report folder (default: iphone-duo-check-report)
       --no-report      Don't write report files, only print
       --json           Print the report as JSON
       --strict         Exit 1 on warnings as well as errors
@@ -65,20 +65,20 @@ Check every pull request. Start your site, then point the action at it:
 
 ```yaml
 - run: npm ci && npm run build && (npx serve dist -l 4200 &) && sleep 2
-- uses: TEHSEENULLAH786/duo-ready@v0
+- uses: TEHSEENULLAH786/iphone-duo-check@v0
   with:
     url: http://localhost:4200
     # strict: true   # fail on warnings too
 ```
 
 The findings appear in the job summary, and the report with screenshots is
-uploaded as the `duo-ready-report` artifact. Inputs: `url`, `strict`,
+uploaded as the `iphone-duo-check-report` artifact. Inputs: `url`, `strict`,
 `engine`, `settle`, `report-name`. Outputs: `errors`, `warnings`.
 
 ### From code
 
 ```js
-import { checkUrl } from 'duo-ready';
+import { checkUrl } from 'iphone-duo-check';
 
 const report = await checkUrl('http://localhost:4200', { outDir: null });
 console.log(report.summary); // { errors, warnings, notes }
@@ -86,7 +86,7 @@ console.log(report.summary); // { errors, warnings, notes }
 
 ## Limits
 
-- **Sizes are estimates.** Apple hasn't published CSS viewport sizes. duo-ready
+- **Sizes are estimates.** Apple hasn't published CSS viewport sizes. iphone-duo-check
   uses the third-party figures of 466 × 678 folded and 890 × 626 open, with the
   crease at x = 445. They live in `src/devices.mjs`.
 - **WebKit isn't iPhone Safari.** It's the same engine, but not the address bar,

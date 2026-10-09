@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>duo-ready · https://chatular.ai</title>
+<style>
+:root { --bg:#f6f6f4; --fg:#18181b; --muted:#6b6b70; --card:#fff; --line:#e4e4e0;
+  --error:#d11; --warn:#c70; --info:#36c; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#111113; --fg:#ececee; --muted:#9a9aa0;
+  --card:#1b1b1e; --line:#2c2c30; --error:#f55; --warn:#fa4; --info:#7af; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui,-apple-system,sans-serif; }
+main { max-width:1200px; margin:0 auto; padding:32px 16px 64px; }
+h1 { font-size:28px; margin:0 0 4px; } h2 { font-size:18px; margin:40px 0 12px; }
+.url { color:var(--muted); word-break:break-all; margin:0; }
+.counts { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 0; }
+.counts span { padding:4px 10px; border-radius:999px; background:var(--card); border:1px solid var(--line); }
+.shots { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; align-items:start; }
+figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
+figure img { width:100%; height:auto; display:block; border-radius:6px; border:1px solid var(--line); }
+figcaption { font-size:13px; color:var(--muted); margin-top:8px; }
+.finding { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--info);
+  border-radius:10px; padding:14px 16px; margin:0 0 12px; }
+.finding.error { border-left-color:var(--error); } .finding.warn { border-left-color:var(--warn); }
+.finding header { display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+.finding h3 { margin:0; font-size:16px; flex:1; min-width:200px; }
+.sev { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+.error .sev { color:var(--error); } .warn .sev { color:var(--warn); } .info .sev { color:var(--info); }
+.where { font-size:12px; color:var(--muted); }
+.finding p { margin:8px 0 0; } .fix { color:var(--muted); }
+.finding ul { margin:10px 0 0; padding:0; list-style:none; display:grid; gap:4px; }
+.finding li { display:flex; gap:8px; align-items:baseline; min-width:0; }
+.finding code { font-size:13px; overflow-wrap:anywhere; }
+.n { font-size:11px; font-weight:700; color:#fff; background:var(--warn); border-radius:3px; padding:0 5px; }
+.error .n { background:var(--error); }
+.empty { color:var(--muted); }
+footer { margin-top:40px; font-size:13px; color:var(--muted); }
+</style></head>
+<body><main>
+<h1>No blocking problems</h1>
+<p class="url">https://chatular.ai</p>
+<div class="counts"><span>0 errors</span><span>2 warnings</span><span>0 notes</span></div>
+<h2>Screens</h2><div class="shots"><figure><img src="folded.jpg" alt="Folded · 466×678"><figcaption>Folded · 466×678</figcaption></figure><figure><img src="unfolded.jpg" alt="Opened from folded · 890×626"><figcaption>Opened from folded · 890×626 · dashed line = fold</figcaption></figure><figure><img src="open.jpg" alt="Fresh load, open · 890×626"><figcaption>Fresh load, open · 890×626 · dashed line = fold</figcaption></figure></div>
+<h2>Findings</h2>
+
+    <article class="finding warn">
+      <header><span class="sev">Warning</span>
+        <h3>15 tap targets are too small</h3><span class="where">folded</span></header>
+      <p>The folded screen is only 466px wide. Apple asks for at least 44×44pt per control; these are smaller both ways, or under 24px one way.</p>
+      <p class="fix"><strong>Fix:</strong> Add padding (or min-width / min-height: 44px) to the marked controls.</p>
+      <ul><li><span class="n">1</span><code>header.cl-nav &gt; div.cl-nav-right &gt; button.cl-nav-theme (34×34)</code></li><li><span class="n">2</span><code>app-language-picker &gt; div.relative &gt; button.lp-trigger.flex (34×34)</code></li><li><span class="n">3</span><code>div.cl-composer-row &gt; div.cl-composer-left &gt; button.cl-btn-icon (32×32)</code></li><li><span class="n">4</span><code>div.cl-composer-row &gt; div.cl-composer-left &gt; button.cl-btn-icon.cl-btn-camera (32×32)</code></li><li><span class="n">5</span><code>div.cl-composer-row &gt; div.cl-composer-left &gt; button.cl-btn-icon (32×32)</code></li><li><span class="n">6</span><code>div.cl-composer-row &gt; div.cl-composer-right &gt; button.cl-btn-icon (32×32)</code></li><li><span class="n">7</span><code>div.cl-composer-row &gt; div.cl-composer-right &gt; button.cl-btn-send (32×32)</code></li><li><span class="n">8</span><code>div.cl-composer-wrap &gt; div.cl-install-row &gt; button.cl-foot-link.cl-foot-btn (56×17)</code></li><li><span class="n">9</span><code>main.cl-main &gt; footer.cl-foot &gt; a.cl-foot-link (38×17)</code></li><li><span class="n">10</span><code>main.cl-main &gt; footer.cl-foot &gt; a.cl-foot-link (28×17)</code></li></ul>
+    </article>
+    <article class="finding warn">
+      <header><span class="sev">Warning</span>
+        <h3>3 controls sit on the fold</h3><span class="where">open</span></header>
+      <p>On the open Duo the crease runs down the middle of the screen. Buttons and links on it are hard to tap, and Safari does not move them aside the way iOS does for native apps.</p>
+      <p class="fix"><strong>Fix:</strong> Lay the open screen out as two columns with a gap at the centre, or keep small controls off the middle (CSS grid with a central gutter works well).</p>
+      <ul><li><span class="n">1</span><code>div.cl-composer-wrap &gt; div.cl-install-row &gt; button.cl-foot-link.cl-foot-btn</code></li><li><span class="n">2</span><code>div.cl-cta &gt; div.cl-cta-actions &gt; button.cl-btn-primary</code></li><li><span class="n">3</span><code>main.cl-main &gt; footer.cl-foot &gt; a.cl-foot-link</code></li></ul>
+    </article>
+<footer>
+Checked 2026-10-09T13:20:48.481Z in WebKit (Safari’s engine; close to, but not the same as, Safari on the phone).
+Screen sizes are third-party estimates until Apple publishes them. Made with duo-ready.
+</footer>
+</main></body></html>

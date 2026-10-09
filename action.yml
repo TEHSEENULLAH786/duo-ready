@@ -1,4 +1,4 @@
-name: duo-ready
+name: iphone-duo-check
 description: Check a website for iPhone Duo layout problems (sideways scroll, layouts that don't update when the phone opens, controls on the fold)
 author: Tehseen Ullah
 branding:
@@ -20,7 +20,7 @@ inputs:
     default: '800'
   report-name:
     description: Name of the uploaded report artifact (empty to skip the upload)
-    default: duo-ready-report
+    default: iphone-duo-check-report
 
 outputs:
   errors:
@@ -33,7 +33,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Install duo-ready
+    - name: Install iphone-duo-check
       shell: bash
       working-directory: ${{ github.action_path }}
       run: |
@@ -48,12 +48,12 @@ runs:
         DUO_STRICT: ${{ inputs.strict }}
         DUO_ENGINE: ${{ inputs.engine }}
         DUO_SETTLE: ${{ inputs.settle }}
-        DUO_OUT: ${{ runner.temp }}/duo-ready-report
+        DUO_OUT: ${{ runner.temp }}/iphone-duo-check-report
       run: |
         args=("$DUO_URL" --out "$DUO_OUT" --engine "$DUO_ENGINE" --settle "$DUO_SETTLE" --summary "$GITHUB_STEP_SUMMARY")
         [ "$DUO_STRICT" = "true" ] && args+=(--strict)
         set +e
-        node "${{ github.action_path }}/bin/duo-ready.mjs" "${args[@]}"
+        node "${{ github.action_path }}/bin/iphone-duo-check.mjs" "${args[@]}"
         code=$?
         set -e
         if [ -f "$DUO_OUT/report.json" ]; then
@@ -66,7 +66,7 @@ runs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.report-name }}
-        path: ${{ runner.temp }}/duo-ready-report
+        path: ${{ runner.temp }}/iphone-duo-check-report
         if-no-files-found: ignore
 
     - name: Result

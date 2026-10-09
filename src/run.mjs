@@ -19,7 +19,7 @@ const MAX_SHOT_HEIGHT = 4000;
 export async function checkUrl(url, opts = {}) {
   const { outDir = null, engine = 'webkit', timeout = 30000, settle = 800 } = opts;
   const pw = await import('playwright').catch(() => {
-    throw new Error('duo-ready needs Playwright: npm install playwright');
+    throw new Error('iphone-duo-check needs Playwright: npm install playwright');
   });
   const browserType = pw[engine];
   if (!browserType || !['webkit', 'chromium'].includes(engine)) {

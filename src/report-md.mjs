@@ -7,7 +7,7 @@ export function renderMarkdown(report) {
   const { errors, warnings, notes } = report.summary;
   const icon = { error: '🔴', warn: '🟠', info: '🔵' };
   const lines = [
-    `### duo-ready: ${errors ? plural(errors, 'error') : 'no errors'} on ${report.url}`,
+    `### iphone-duo-check: ${errors ? plural(errors, 'error') : 'no errors'} on ${report.url}`,
     '',
     `${plural(errors, 'error')} · ${plural(warnings, 'warning')} · ${plural(notes, 'note')} · iPhone Duo folded ` +
       `${report.sizes.folded.width}×${report.sizes.folded.height}, open ${report.sizes.open.width}×${report.sizes.open.height}`,

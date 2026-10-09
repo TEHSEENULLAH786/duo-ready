@@ -32,7 +32,7 @@ test('a responsive page passes', async () => {
 });
 
 test('the bad page shows every problem, with a report on disk', async () => {
-  const outDir = await mkdtemp(join(tmpdir(), 'duo-ready-'));
+  const outDir = await mkdtemp(join(tmpdir(), 'iphone-duo-check-'));
   const report = await checkUrl(`${base}/bad.html`, { settle: 200, outDir });
   assert.deepEqual(ids(report), ['on-fold', 'orientation-query', 'side-scroll', 'stale-resize', 'tap-size']);
 

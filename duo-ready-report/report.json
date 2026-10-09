@@ -1,0 +1,152 @@
+{
+  "url": "https://chatular.ai",
+  "engine": "webkit",
+  "checkedAt": "2026-10-09T13:20:48.481Z",
+  "sizes": {
+    "folded": {
+      "width": 466,
+      "height": 678
+    },
+    "open": {
+      "width": 890,
+      "height": 626
+    },
+    "foldX": 445
+  },
+  "summary": {
+    "errors": 0,
+    "warnings": 2,
+    "notes": 0
+  },
+  "findings": [
+    {
+      "id": "tap-size",
+      "severity": "warn",
+      "state": "folded",
+      "title": "15 tap targets are too small",
+      "detail": "The folded screen is only 466px wide. Apple asks for at least 44×44pt per control; these are smaller both ways, or under 24px one way.",
+      "fix": "Add padding (or min-width / min-height: 44px) to the marked controls.",
+      "items": [
+        {
+          "label": "header.cl-nav > div.cl-nav-right > button.cl-nav-theme (34×34)",
+          "x": 301,
+          "y": 14,
+          "w": 34,
+          "h": 34,
+          "inlineInText": false
+        },
+        {
+          "label": "app-language-picker > div.relative > button.lp-trigger.flex (34×34)",
+          "x": 341,
+          "y": 14,
+          "w": 34,
+          "h": 34,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-row > div.cl-composer-left > button.cl-btn-icon (32×32)",
+          "x": 41,
+          "y": 395,
+          "w": 32,
+          "h": 32,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-row > div.cl-composer-left > button.cl-btn-icon.cl-btn-camera (32×32)",
+          "x": 79,
+          "y": 395,
+          "w": 32,
+          "h": 32,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-row > div.cl-composer-left > button.cl-btn-icon (32×32)",
+          "x": 117,
+          "y": 395,
+          "w": 32,
+          "h": 32,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-row > div.cl-composer-right > button.cl-btn-icon (32×32)",
+          "x": 350,
+          "y": 395,
+          "w": 32,
+          "h": 32,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-row > div.cl-composer-right > button.cl-btn-send (32×32)",
+          "x": 388,
+          "y": 395,
+          "w": 32,
+          "h": 32,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-composer-wrap > div.cl-install-row > button.cl-foot-link.cl-foot-btn (56×17)",
+          "x": 203,
+          "y": 473,
+          "w": 56,
+          "h": 17,
+          "inlineInText": false
+        },
+        {
+          "label": "main.cl-main > footer.cl-foot > a.cl-foot-link (38×17)",
+          "x": 24,
+          "y": 1751,
+          "w": 38,
+          "h": 17,
+          "inlineInText": false
+        },
+        {
+          "label": "main.cl-main > footer.cl-foot > a.cl-foot-link (28×17)",
+          "x": 81,
+          "y": 1751,
+          "w": 28,
+          "h": 17,
+          "inlineInText": false
+        }
+      ]
+    },
+    {
+      "id": "on-fold",
+      "severity": "warn",
+      "state": "open",
+      "title": "3 controls sit on the fold",
+      "detail": "On the open Duo the crease runs down the middle of the screen. Buttons and links on it are hard to tap, and Safari does not move them aside the way iOS does for native apps.",
+      "fix": "Lay the open screen out as two columns with a gap at the centre, or keep small controls off the middle (CSS grid with a central gutter works well).",
+      "items": [
+        {
+          "label": "div.cl-composer-wrap > div.cl-install-row > button.cl-foot-link.cl-foot-btn",
+          "x": 415,
+          "y": 447,
+          "w": 56,
+          "h": 17,
+          "inlineInText": false
+        },
+        {
+          "label": "div.cl-cta > div.cl-cta-actions > button.cl-btn-primary",
+          "x": 312,
+          "y": 1367,
+          "w": 144,
+          "h": 43,
+          "inlineInText": false
+        },
+        {
+          "label": "main.cl-main > footer.cl-foot > a.cl-foot-link",
+          "x": 448,
+          "y": 1459,
+          "w": 49,
+          "h": 17,
+          "inlineInText": false
+        }
+      ]
+    }
+  ],
+  "screenshots": {
+    "folded": "folded.jpg",
+    "unfolded": "unfolded.jpg",
+    "open": "open.jpg"
+  }
+}

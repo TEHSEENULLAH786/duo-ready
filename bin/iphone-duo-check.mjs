@@ -6,12 +6,12 @@ import { checkUrl } from '../src/run.mjs';
 import { stateName } from '../src/checks.mjs';
 import { renderMarkdown } from '../src/report-md.mjs';
 
-const HELP = `duo-ready: check a website for iPhone Duo layout problems
+const HELP = `iphone-duo-check: check a website for iPhone Duo layout problems
 
-Usage: duo-ready <url> [options]
+Usage: iphone-duo-check <url> [options]
 
 Options:
-  -o, --out <dir>      Report folder (default: duo-ready-report)
+  -o, --out <dir>      Report folder (default: iphone-duo-check-report)
       --no-report      Don't write report files, only print
       --json           Print the report as JSON
       --summary <file> Also append a Markdown summary to <file> (for CI)
@@ -28,7 +28,7 @@ try {
   args = parseArgs({
     allowPositionals: true,
     options: {
-      out: { type: 'string', short: 'o', default: 'duo-ready-report' },
+      out: { type: 'string', short: 'o', default: 'iphone-duo-check-report' },
       'no-report': { type: 'boolean', default: false },
       json: { type: 'boolean', default: false },
       summary: { type: 'string' },
@@ -73,7 +73,7 @@ try {
     settle: Number(values.settle),
   });
 } catch (err) {
-  console.error(red('duo-ready: ') + err.message);
+  console.error(red('iphone-duo-check: ') + err.message);
   process.exit(2);
 }
 

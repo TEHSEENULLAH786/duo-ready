@@ -50,7 +50,7 @@ export function renderHtml(report) {
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>duo-ready · ${esc(report.url)}</title>
+<title>iphone-duo-check · ${esc(report.url)}</title>
 <style>
 :root { --bg:#f6f6f4; --fg:#18181b; --muted:#6b6b70; --card:#fff; --line:#e4e4e0;
   --error:#d11; --warn:#c70; --info:#36c; color-scheme: light dark; }
@@ -99,7 +99,7 @@ ${
 ${findingHtml || '<p class="empty">Nothing found.</p>'}
 <footer>
 Checked ${esc(report.checkedAt)} in ${esc(report.engine === 'webkit' ? 'WebKit (Safari’s engine; close to, but not the same as, Safari on the phone)' : report.engine)}.
-Screen sizes are third-party estimates until Apple publishes them. Made with duo-ready.
+Screen sizes are third-party estimates until Apple publishes them. Made with iphone-duo-check.
 </footer>
 </main></body></html>
 `;
