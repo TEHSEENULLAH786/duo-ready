@@ -1,0 +1,4 @@
+node_modules/
+duo-ready-report/
+*.log
+.DS_Store

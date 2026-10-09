@@ -1,0 +1,13 @@
+<!doctype html>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin: 0; font: 16px system-ui; }
+  .page { display: grid; gap: 40px; padding: 16px; }
+  @media (min-width: 700px) { .page { grid-template-columns: 1fr 1fr; gap: 64px; } }
+  button, a { display: inline-block; min-width: 44px; min-height: 44px; padding: 10px 16px; }
+  img { max-width: 100%; }
+</style></head>
+<body><div class="page">
+  <section><h1>Left</h1><p>Some text with an <a href="#x" style="display:inline;min-height:0;padding:0">inline link</a> inside a sentence that is long enough.</p><button>Save</button></section>
+  <section><h1>Right</h1><p>More text.</p><a href="#y">Open</a></section>
+</div></body></html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin: 0; font: 16px system-ui; }
+  .banner { width: 600px; height: 80px; background: #ccc; }
+  .center { text-align: center; padding: 20px 0; }
+  .tiny { width: 20px; height: 20px; padding: 0; }
+  @media (orientation: landscape) { .banner { background: #aaa; } }
+</style></head>
+<body>
+  <div class="banner">Fixed-width banner</div>
+  <div class="center"><button id="fold-btn" style="width:80px;height:44px">Buy</button></div>
+  <button class="tiny" aria-label="close">x</button>
+  <div id="stale" style="height:100px;background:#eef">Measured once</div>
+  <script>
+    // The classic bug: read the width once and never again.
+    document.getElementById('stale').style.width = window.innerWidth + 'px';
+  </script>
+</body></html>
